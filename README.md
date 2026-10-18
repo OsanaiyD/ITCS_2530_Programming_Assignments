@@ -1,6 +1,6 @@
 ITCS 2530 – C++ Programming Assignments
 
-Student: [Your Full Name]
+Student: Daniel Osanaiye
 Course: ITCS 2530 – C++ Programming Assignments
 
 About This Repository
