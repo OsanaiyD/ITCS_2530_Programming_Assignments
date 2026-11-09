@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\GotLaptopParts.com\\source\\repos\\Week01_Programming_Assignment\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B70A5CB6-D770-4F48-A0E4-AE717245025D}|Week01_Programming_Assignment.vcxproj|C:\\Users\\GotLaptopParts.com\\source\\repos\\Week01_Programming_Assignment\\Week01_Programming_Assignment.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{B70A5CB6-D770-4F48-A0E4-AE717245025D}|Week01_Programming_Assignment.vcxproj|solutionrelative:Week01_Programming_Assignment.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Week01_Programming_Assignment.cpp",
+              "DocumentMoniker": "C:\\Users\\GotLaptopParts.com\\source\\repos\\Week01_Programming_Assignment\\Week01_Programming_Assignment.cpp",
+              "RelativeDocumentMoniker": "Week01_Programming_Assignment.cpp",
+              "ToolTip": "C:\\Users\\GotLaptopParts.com\\source\\repos\\Week01_Programming_Assignment\\Week01_Programming_Assignment.cpp*",
+              "RelativeToolTip": "Week01_Programming_Assignment.cpp*",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAAwAoAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-10-18T21:48:43.885Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

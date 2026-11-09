@@ -15,6 +15,8 @@ int main()
     double practiceHoursPerWeek;
     int matchesPerMonth;
     int dashboard;
+    int week;
+    double totalPracticeHours = 0;
 
     // report file
     ofstream reportFile("report.txt");
@@ -32,34 +34,43 @@ int main()
     cout << "How many tennis matches do you watch per month? ";
     cin >> tennismatches;
 
-    // Validate matches watched
-    if (cin.fail() || tennismatches < 0)
+  
+    // The While loop
+    while (cin.fail() || tennismatches < 0)
     {
-        cout << "Invalid input. Please enter a whole number 0 or greater.\n";
-        return 1;
+        cin.clear();
+        cin.ignore(1000, '\n');
+
+        cout << "This was a invalid input. please enter a number 0 or higher than 0";
+        cin >> tennismatches;
     }
 
     // weekly tennis practice hours
     cout << "Please enter how many hours do you practice tennis every week? ";
     cin >> practiceHoursPerWeek;
 
-    // Validate practice hours
-    if (cin.fail() || practiceHoursPerWeek < 0 ||
-        practiceHoursPerWeek > 168)
+    //The while loop
+    while (cin.fail() || practiceHoursPerWeek < 0 || practiceHoursPerWeek > 168)
     {
-        cout << "Invalid input. Please enter hours from 0 to 168.\n";
-        return 1;
+        cin.clear();
+        cin.ignore(1000, '\n');
+
+        cout << "This was a invalid input. Please enter a number from 0 to 168";
+        cin >> practiceHoursPerWeek;
     }
 
     //  how many matches the user plays per month
     cout << "How many matches do you play every month? ";
     cin >> matchesPerMonth;
 
-    // Validate matches played
-    if (cin.fail() || matchesPerMonth < 0)
+    // The while loop
+    while (cin.fail() || matchesPerMonth < 0)
     {
-        cout << "Invalid input. Enter a whole number 0 or greater.\n";
-        return 1;
+        cin.clear();
+        cin.ignore(1000, '\n');
+
+        cout << "This was a invalid input. Please enter a number from 0 or higher than 0";
+        cin >> matchesPerMonth;
     }
 
     // Calculate yearly practice hours and average matches per week
@@ -148,67 +159,95 @@ int main()
         cout << "Try watching or playing more tennis matches!\n";
         reportFile << "Try watching or playing more tennis matches!\n";
     }
+    
 
-    // show the options menu
-    cout << "\n===============================================\n";
-    cout << "              TENNIS OPTIONS MENU\n";
-    cout << "===============================================\n";
-    cout << "1. View Weekly Practice Information\n";
-    cout << "2. View Match Information\n";
-    cout << "3. Exit Program\n";
-    cout << "Enter your choice: ";
 
-    cin >> dashboard;
-
-    // Validate dashboard 
-    if (cin.fail() || dashboard < 1 || dashboard > 3)
+    // the do while loop 
+    do
     {
-        cout << "Invalid menu choice.\n";
-        reportFile << "Invalid menu choice.\n";
-        reportFile.close();
-        return 1;
-    }
+        // show the options menu
+        cout << "\n===============================================\n";
+        cout << "              TENNIS OPTIONS MENU\n";
+        cout << "===============================================\n";
+        cout << "1. View Weekly Practice Information\n";
+        cout << "2. View Match Information\n";
+        cout << "3. Exit Program\n";
+        cout << "Enter your choice: ";
 
-    // select a option
-    switch (dashboard)
-    {
-    case 1:
-        cout << "\nWEEKLY PRACTICE INFORMATION\n";
-        cout << "Practice hours per week: "
-            << practiceHoursPerWeek << '\n';
-        cout << "Practice hours per year: "
-            << yearlyPracticeHours << '\n';
+        cin >> dashboard;
 
-        reportFile << "\nWEEKLY PRACTICE INFORMATION\n";
-        reportFile << "Practice hours per week: "
-            << practiceHoursPerWeek << '\n';
-        reportFile << "Practice hours per year: "
-            << yearlyPracticeHours << '\n';
-        break;
+        // Validate dashboard 
+        while (cin.fail() || dashboard < 1 || dashboard > 3)
+        {
+            cin.clear();
+            cin.ignore(1000, '\n');
 
-    case 2:
-        cout << "\nMATCH INFORMATION\n";
-        cout << "Matches watched per month: "
-            << tennismatches << '\n';
-        cout << "Matches played per month: "
-            << matchesPerMonth << '\n';
-        cout << "Average matches per week: "
-            << averageMatchesPerWeek << '\n';
+            cout << "Invalid menu choice. Enter 1, 2, or 3: ";
+            cin >> dashboard;
+        }
 
-        reportFile << "\nMATCH INFORMATION\n";
-        reportFile << "Matches watched per month: "
-            << tennismatches << '\n';
-        reportFile << "Matches played per month: "
-            << matchesPerMonth << '\n';
-        reportFile << "Average matches per week: "
-            << averageMatchesPerWeek << '\n';
-        break;
+        // select a option
+        switch (dashboard)
+        {
+        case 1:
+            cout << "\nWEEKLY PRACTICE INFORMATION\n";
+            cout << "Practice hours per week: "
+                << practiceHoursPerWeek << '\n';
+            cout << "Practice hours per year: "
+                << yearlyPracticeHours << '\n';
 
-    case 3:
-        cout << "\nThank you for using the Tennis Report!\n";
-        reportFile << "\nUser selected Exit Program.\n";
-        break;
-    }
+            reportFile << "\nWEEKLY PRACTICE INFORMATION\n";
+            reportFile << "Practice hours per week: "
+                << practiceHoursPerWeek << '\n';
+            reportFile << "Practice hours per year: "
+                << yearlyPracticeHours << '\n';
+
+            //for loop
+            cout << "\nFIVE-WEEK PRACTICE SUMMARY\n";
+            reportFile << "\nFIVE-WEEK PRACTICE SUMMARY\n";
+            totalPracticeHours = 0;
+
+            for (week = 1; week <= 5; week++)
+            {
+                totalPracticeHours += practiceHoursPerWeek;
+
+                cout << "Week " << week
+                    << " | Practice Hours: " << practiceHoursPerWeek
+                    << " | Total Hours: " << totalPracticeHours
+                    << '\n';
+
+                reportFile << "Week " << week
+                    << " | Practice Hours: " << practiceHoursPerWeek
+                    << " | Total Hours: " << totalPracticeHours
+                    << '\n';
+            }
+
+            break;
+
+        case 2:
+            cout << "\nMATCH INFORMATION\n";
+            cout << "Matches watched per month: "
+                << tennismatches << '\n';
+            cout << "Matches played per month: "
+                << matchesPerMonth << '\n';
+            cout << "Average matches per week: "
+                << averageMatchesPerWeek << '\n';
+
+            reportFile << "\nMATCH INFORMATION\n";
+            reportFile << "Matches watched per month: "
+                << tennismatches << '\n';
+            reportFile << "Matches played per month: "
+                << matchesPerMonth << '\n';
+            reportFile << "Average matches per week: "
+                << averageMatchesPerWeek << '\n';
+            break;
+
+        case 3:
+            cout << "\nThank you for using the Tennis Report!\n";
+            reportFile << "\nUser selected Exit Program.\n";
+            break;
+        }
+	} while (dashboard != 3);
     // Close the report file
     reportFile.close();
 

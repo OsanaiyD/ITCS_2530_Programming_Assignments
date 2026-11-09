@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "Week01_P.b70a5cb6\\x64\\Debug\\Week01_Programming_Assignment.obj",
+            "outputs": [
+                "Week01_P.b70a5cb6\\x64\\Debug\\Week01_Programming_Assignment.cpp.obj.dt.module.json",
+                "Week01_P.b70a5cb6\\x64\\Debug\\Week01_Programming_Assignment.cpp.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}
