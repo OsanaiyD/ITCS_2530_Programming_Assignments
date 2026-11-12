@@ -71,3 +71,22 @@ Testing/
 .vs/
 *.user
 *.suo
+# Visual Studio temporary files
+.vs/
+**/Debug/
+**/Release/
+**/x64/
+**/x86/
+**/ipch/
+*.VC.db
+*.VC.db-shm
+*.VC.db-wal
+*.tlog/
+*.lastbuildstate
+*.log
+# Additional Visual Studio generated files
+*.db
+*.db-shm
+*.db-wal
+*.opendb
+DocumentLayout*.json
