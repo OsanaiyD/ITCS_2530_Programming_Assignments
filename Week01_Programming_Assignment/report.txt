@@ -1,0 +1,17 @@
+
+===============================================
+                 TENNIS SUMMARY
+===============================================
+Player Name                   : Sally Al Juboori
+Matches Watched Per Month     : 3
+Practice Hours Per Week       : 40.00
+Matches Played Per Month      : 5
+Average Matches Per Week      : 1.25
+Yearly Practice Hours         : 2080.00
+===============================================
+
+TENNIS PRACTICE EVALUATION
+You are a regular tennis player!
+
+TENNIS INTEREST EVALUATION
+You have a good interest in tennis!

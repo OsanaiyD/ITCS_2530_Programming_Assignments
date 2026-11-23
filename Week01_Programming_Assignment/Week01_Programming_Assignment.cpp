@@ -5,6 +5,10 @@
 #include <string>
 using namespace std;
 
+// Enum Skill rating for the player (Beginner = 0, Amateur = 1, Pro = 2)
+enum SkillLevel { BEGINNER, AMATEUR, PRO };
+
+//Console color
 void changeColor()
 {
 	system("color 0A");
@@ -30,11 +34,11 @@ string getPlayerName()
         cout << "Invalid input. Please enter your full name: ";
         getline(cin, playerName);
     }
-    
+
     return playerName;
 }
 
-int getValidatMatchs(string prompt)
+int getValidMatches(string prompt)
 {
     int matches;
 
@@ -99,10 +103,68 @@ void calculateStats(double practiceHoursPerWeek, int matchesPerMonth, double& ye
     averageMatchesPerWeek = matchesPerMonth / 4.0;
 }
 
-// Display the tennis summary report
+// ARRAY: fill array with practice hours for each of the last 5 weeks
+void fillWeeklyHours(double loggedHours[], int size)
+{
+    cout << "\nEnter the practice hours you logged each week: \n";
+
+    for (int i = 0; i < size; i++)
+    {
+        cout << " Week " << i + 1;
+        loggedHours[i] = getValidPracticeHours(": ");
+    }
+}
+
+// Find average of an array of doubles
+double findAverage(const double values[], int size)
+{
+    double total = 0;
+
+    for (int i = 0; i < size; i++)
+    {
+        total += values[i];
+    }
+    return total / size;
+}
+
+// Pick a skill level (compound conditions)
+SkillLevel determineSkillLevel(double averageHours, int matchesPerMonth)
+{
+    if (averageHours >= 10 && matchesPerMonth >= 8)
+    { 
+        return PRO;
+    }
+    else if (averageHours >= 5 && matchesPerMonth >= 3)
+    {
+        return AMATEUR;
+    }
+    else
+    {
+        return BEGINNER;
+    }
+}
+
+// turn the enum into text with a switch
+string getSkillName(SkillLevel level)
+{
+    switch (level)
+    {
+    case BEGINNER:
+        return "Beginner";
+    case AMATEUR:
+        return "Amateur";
+    case PRO:
+        return "Pro";
+    }
+    return "Unknown";
+}
+
+
+//Display the tennis summary report
 void displayReport(string playerName, int tennismatches,
     double practiceHoursPerWeek, int matchesPerMonth,
-    double averageMatchesPerWeek, double yearlyPracticeHours)
+    double averageMatchesPerWeek, double yearlyPracticeHours,
+    const double loggedHours[], int weeks, double averageLoggedHours, SkillLevel level)
 {
     cout << fixed << setprecision(2);
 
@@ -128,7 +190,23 @@ void displayReport(string playerName, int tennismatches,
     cout << left << setw(30) << "Yearly Practice Hours"
         << ": " << yearlyPracticeHours << '\n';
 
+    cout << left << setw(30) << "Avg Logged Hours (5 Weeks)" 
+        << ": " << averageLoggedHours << '\n';
+
+    cout << left << setw(30) << "Skill Level"
+        << ": " << getSkillName(level) << '\n';             
+
     cout << "===============================================\n";
+
+    //array contents
+    cout << "\nLOGGED HOURS BY WEEK \n";
+    for (int i = 0; i < weeks; i++)
+    {
+        cout << "Week " << i + 1 << ": "
+            << right << setw(8) << loggedHours[i] << '\n';
+    }
+    cout << left;
+
 
     // First if/else 
     cout << "\nTENNIS PRACTICE EVALUATION\n";
@@ -159,7 +237,8 @@ void displayReport(string playerName, int tennismatches,
 // Save report file
 void saveReport(string playerName, int tennismatches,
     double practiceHoursPerWeek, int matchesPerMonth,
-    double averageMatchesPerWeek, double yearlyPracticeHours)
+    double averageMatchesPerWeek, double yearlyPracticeHours,
+    const double loggedHours[], int weeks, double averageLoggedHours, SkillLevel level)
 {
     ofstream reportFile("report.txt");
 
@@ -189,7 +268,22 @@ void saveReport(string playerName, int tennismatches,
         reportFile << left << setw(30) << "Yearly Practice Hours"
             << ": " << yearlyPracticeHours << '\n';
 
+        reportFile << left << setw(30) << "Avg Logged Hours (5 Weeks)"
+            << ": " << averageLoggedHours << '\n';
+
+        reportFile << left << setw(30) << "Skill Level"
+            << ": " << getSkillName(level) << '\n';
+
         reportFile << "===============================================\n";
+
+        // array contents
+        reportFile << "\nLOGGED HOURS BY WEEK\n";
+        for (int i = 0; i < weeks; i++)
+        {
+            reportFile << "Week " << i + 1 << ": "
+                << right << setw(8) << loggedHours[i] << '\n';
+        }
+        reportFile << left;
 
         // First if/else report
         reportFile << "\nTENNIS PRACTICE EVALUATION\n";
@@ -265,8 +359,11 @@ int main()
     double practiceHoursPerWeek;
     int matchesPerMonth;
     int dashboard;
-    int week;
-    double totalPracticeHours = 0;
+    double totalPracticeHours = 0; 
+    const int WEEKS = 5;
+    double loggedHours[WEEKS] = { 0 }; 
+    double averageLoggedHours;
+    SkillLevel level; 
 
 
 
@@ -281,14 +378,21 @@ int main()
     collectInput(playerName, tennismatches,
         practiceHoursPerWeek, matchesPerMonth);
 
+    // filling array
+    fillWeeklyHours(loggedHours, WEEKS);
+
     // Calculate tennis statistics
     calculateStats(practiceHoursPerWeek, matchesPerMonth,
         yearlyPracticeHours, averageMatchesPerWeek);
 
+    averageLoggedHours = findAverage(loggedHours, WEEKS);
+    level = determineSkillLevel(averageLoggedHours, matchesPerMonth);
+
     // Display tennis report
     displayReport(playerName, tennismatches,
         practiceHoursPerWeek, matchesPerMonth,
-        averageMatchesPerWeek, yearlyPracticeHours);
+        averageMatchesPerWeek, yearlyPracticeHours,
+        loggedHours, WEEKS, averageLoggedHours, level);
 
     // Repeat menu until the user exits
     do
@@ -312,14 +416,13 @@ int main()
 
             totalPracticeHours = 0;
 
-            for (int week = 1; week <= 5; week++)
+            for (int week = 1; week <= WEEKS; week++)
             {
-                totalPracticeHours += practiceHoursPerWeek;
+                totalPracticeHours += loggedHours[week - 1];
 
                 cout << "Week " << week
-                    << " | Practice Hours: " << practiceHoursPerWeek
-                    << " | Total Hours: " << totalPracticeHours
-                    << '\n';
+                    << " | Practice Hours: " << loggedHours[week - 1]
+                    << " | Total Hours: " << totalPracticeHours << '\n';
             }
 
             break;
@@ -348,7 +451,8 @@ int main()
     // Save report to file
     saveReport(playerName, tennismatches,
         practiceHoursPerWeek, matchesPerMonth,
-        averageMatchesPerWeek, yearlyPracticeHours);
+        averageMatchesPerWeek, yearlyPracticeHours,
+        loggedHours, WEEKS, averageLoggedHours, level);
 
     cout << "\nYour report has been saved to report.txt.\n";
     cout << "Thank you for using the Tennis Report!\n";
