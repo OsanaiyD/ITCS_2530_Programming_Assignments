@@ -34,7 +34,7 @@ string getPlayerName()
     return playerName;
 }
 
-int getValidatMatchs(string prompt)
+int getValidMatchs(string prompt)
 {
     int matches;
 
